@@ -1,0 +1,49 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_centerVertical="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="edu.temple.bitcoindashboard.NavFragment">
+
+    <Button
+        android:text="View Price (USD)"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/viewPriceButton"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="62dp"
+        android:elevation="0dp"
+        android:textAlignment="center" />
+
+    <Button
+        android:text="Block Info"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:id="@+id/blockInfoButton"
+        android:layout_below="@+id/priceChartButton"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center" />
+
+    <Button
+        android:text="Price Chart"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
+        android:id="@+id/priceChartButton"
+        android:layout_below="@+id/viewPriceButton"
+        android:layout_alignStart="@+id/viewPriceButton"
+        android:textAlignment="center" />
+
+    <Button
+        android:text="Check Balance"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/blockInfoButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="48dp"
+        android:id="@+id/checkBalance" />
+
+</RelativeLayout>
