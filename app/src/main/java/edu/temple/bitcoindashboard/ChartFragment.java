@@ -51,6 +51,7 @@ public class ChartFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+                //Get what was selected and pass it as a string to 'getTimeInterval'
                 getTimeInterval(parent.getItemAtPosition(position).toString());
             }
 
@@ -60,7 +61,6 @@ public class ChartFragment extends Fragment {
             }
         });
 
-
         //Following two lines enables Javascript
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -68,16 +68,13 @@ public class ChartFragment extends Fragment {
         //Sets the WebViewClient to a new WebViewClient
         webView.setWebViewClient(new WebViewClient());
 
-        //Loads the following URL by default
-        //webView.loadUrl(yahooWebsite + "1d");
-
         return v;
     }
 
     private void getTimeInterval(String string) {
 
-        String timeInterval;
-
+        //Depending on what the user selected in the spinner '1d' or '5d' is added
+        //to the website and then loaded
         switch (string) {
 
             case "1 Day":
