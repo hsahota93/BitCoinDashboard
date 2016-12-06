@@ -14,9 +14,6 @@ public class MainActivity extends AppCompatActivity {
     ChartFragment chartFrag;                //Declaring a DetailsFragment
     boolean twoPaneMode;
 
-    /*  http://btc.blockr.io/api/v1/address/info/PUBLIC_KEY_GOES_HERE (For finding current balance)  */
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,11 +25,12 @@ public class MainActivity extends AppCompatActivity {
         //If true the phone is in landscape
         twoPaneMode = (findViewById(R.id.detailsPane)) != null;
 
-        //If you find the detailsPane then replace it with a DetailsFragment
+        //If you find the detailsPane FrameLayout then replace it with a ChartFragment
         if (twoPaneMode) {
 
-            chartFrag = new ChartFragment();
+            chartFrag = new ChartFragment();        //Creates a new ChartFragment
 
+            //Replaces the detailsPane with a ChartFragment
             fm.beginTransaction()
                     .replace(R.id.detailsPane, new Fragment())
                     .addToBackStack("1")
@@ -40,11 +38,12 @@ public class MainActivity extends AppCompatActivity {
             fm.executePendingTransactions();
         }
 
-        //Creates a new NavFragment
+        //Creates a new NavFragment then tells the NavFragment if
+        //the phone is in landscape mode or not
         navFragment = new NavFragment();
         navFragment.checkOrientation(twoPaneMode);
 
-        //Replaces the FrameLayout with a NavFragment
+        //Replaces the navPane FrameLayout with a NavFragment
         fm.beginTransaction()
                 .replace(R.id.navPane, navFragment)
                 .commit();

@@ -24,7 +24,6 @@ public class NavFragment extends Fragment implements View.OnClickListener {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -53,19 +52,20 @@ public class NavFragment extends Fragment implements View.OnClickListener {
         twoPaneMode = mode;
     }
 
-
+    //OnClick listener for all buttons. Used switch statements to handle different buttons
     @Override
     public void onClick(View v) {
 
         switch (v.getId()) {
-
-            case R.id.viewPriceButton:
+            case R.id.viewPriceButton:          //If user clicks the "View Price" button
 
                 Toast.makeText(v.getContext(), "View Price", Toast.LENGTH_SHORT).show();
 
                 fm = getFragmentManager();
                 priceFrag = new PriceFragment();
 
+                //Checks orientation of the device, replaces detailsPane if in landscape mode
+                //Replaces navPane if in portrait mode
                 if(twoPaneMode) {
 
                     fm.beginTransaction()
@@ -73,6 +73,8 @@ public class NavFragment extends Fragment implements View.OnClickListener {
                             .addToBackStack("1")
                             .commit();
                     fm.executePendingTransactions();
+
+                    priceFrag.getPriceData();           //Updates the TextView with wallet balance
                 } else {
 
                     fm.beginTransaction()
@@ -80,6 +82,8 @@ public class NavFragment extends Fragment implements View.OnClickListener {
                             .addToBackStack("1")
                             .commit();
                     fm.executePendingTransactions();
+
+                    priceFrag.getPriceData();           //Updates the TextView with wallet balance
                 }
 
                 break;

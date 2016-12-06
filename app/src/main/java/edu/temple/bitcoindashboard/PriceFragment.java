@@ -16,10 +16,14 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.logging.Logger;
 
 public class PriceFragment extends Fragment {
 
     TextView priceText;
+    Logger log = Logger.getAnonymousLogger();
+
+    /*  http://btc.blockr.io/api/v1/address/info/PUBLIC_KEY_GOES_HERE (For finding current balance)  */
 
     public PriceFragment() {
         // Required empty public constructor
@@ -33,8 +37,16 @@ public class PriceFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_price, container, false);
         priceText = (TextView) v.findViewById(R.id.priceDisplay);
 
-        priceText.setText("Price goes Here");
+        priceText.setText("Loading...");
 
+        log.info("Finished onCreateView");
+
+        return v;
+    } //End onCreateView
+
+    public void getPriceData() {
+
+        log.info("Started getPriceData");
         Thread priceThread = new Thread() {
 
             @Override
@@ -42,37 +54,39 @@ public class PriceFragment extends Fragment {
 
                 try {
 
-                    URL url = new URL("http://btc.blockr.io/api/v1/address/balance/155eusBLPGkHzCEFkQChC2TZs3WiU3aMMT");
-                    BufferedReader reader = new BufferedReader(
-                            new InputStreamReader(
-                                    url.openStream()));
+                    URL url = new URL("http://btc.blockr.io/api/v1/address/balance/1FfmbHfnpaZjKFvyi1okTjJJusN455paPH");
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
 
-                    String tmpString = "";
+                    String tmpString;
                     String response = "";
+
+                    tmpString = reader.readLine();
+
                     while (tmpString != null) {
-                        response.concat(tmpString);
+
                         response = response + tmpString;
                         tmpString = reader.readLine();
+                        log.info(response);
                     }
 
                     Message msg = Message.obtain();
                     msg.obj = response;
                     responseHandler.sendMessage(msg);
-                } catch (Exception e) {}
-            }
+                } catch (Exception e) {
 
+                    log.info("Failed Run method");
+                }
+            }
         };
 
-        priceThread.run();
-
-        return v;
-    } //End onCreateView
-
+        priceThread.start();
+    }
 
     Handler responseHandler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
 
+            log.info("Started handleMessage");
             try {
 
                 JSONObject blockObject = new JSONObject((String) msg.obj);
@@ -85,6 +99,7 @@ public class PriceFragment extends Fragment {
                 Toast.makeText(getContext(), balance, Toast.LENGTH_SHORT).show();
             } catch (JSONException e) {
 
+                log.info("Failed json thingy");
             }
 
             return true;
