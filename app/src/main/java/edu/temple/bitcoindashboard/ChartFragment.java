@@ -13,11 +13,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.Switch;
 
 public class ChartFragment extends Fragment {
 
     WebView webView;
     Spinner dateSpinner;
+    String yahooWebsite = "http://chart.yahoo.com/z?s=BTCUSD=X&t=";
 
     public ChartFragment() {
         // Required empty public constructor
@@ -34,16 +36,22 @@ public class ChartFragment extends Fragment {
         webView = (WebView) v.findViewById(R.id.webView);
         dateSpinner = (Spinner) v.findViewById(R.id.dateSelector);
 
+        //The options in the spinner
         String[] timeInterval = {"1 Day", "5 Day"};
+
+        //Creating the adapter for the spinner
         ArrayAdapter dateAdapter = new ArrayAdapter(getContext(),
                 R.layout.support_simple_spinner_dropdown_item, timeInterval);
 
+        //Sets 'dateAdapter' as the adapter for 'dateSpinner'
         dateSpinner.setAdapter(dateAdapter);
 
+        //What happens when an item is selected
         dateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+                getTimeInterval(parent.getItemAtPosition(position).toString());
             }
 
             @Override
@@ -61,9 +69,24 @@ public class ChartFragment extends Fragment {
         webView.setWebViewClient(new WebViewClient());
 
         //Loads the following URL by default
-        webView.loadUrl("http://chart.yahoo.com/z?s=BTCUSD=X&t=1d");
+        //webView.loadUrl(yahooWebsite + "1d");
 
         return v;
     }
 
-}
+    private void getTimeInterval(String string) {
+
+        String timeInterval;
+
+        switch (string) {
+
+            case "1 Day":
+                webView.loadUrl(yahooWebsite + "1d");
+                break;
+            case "5 Day":
+                webView.loadUrl(yahooWebsite + "5d");
+                break;
+
+        } //End switch
+    } //End getTimeInterval
+} //End ChartFragment
