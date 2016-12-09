@@ -12,8 +12,7 @@ import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
-import android.widget.Switch;
+
 
 public class ChartFragment extends Fragment {
 
@@ -41,7 +40,7 @@ public class ChartFragment extends Fragment {
 
         //Creating the adapter for the spinner
         ArrayAdapter dateAdapter = new ArrayAdapter(getContext(),
-                R.layout.support_simple_spinner_dropdown_item, timeInterval);
+                android.R.layout.simple_spinner_dropdown_item, timeInterval);
 
         //Sets 'dateAdapter' as the adapter for 'dateSpinner'
         dateSpinner.setAdapter(dateAdapter);
@@ -67,6 +66,9 @@ public class ChartFragment extends Fragment {
 
         //Sets the WebViewClient to a new WebViewClient
         webView.setWebViewClient(new WebViewClient());
+
+        //To make viewing the chart easier
+        webView.setInitialScale(200);
 
         return v;
     }

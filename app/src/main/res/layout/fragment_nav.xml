@@ -7,7 +7,7 @@
     tools:context="edu.temple.bitcoindashboard.NavFragment">
 
     <Button
-        android:text="View Price (USD)"
+        android:text="Check Balance"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:id="@+id/viewPriceButton"
@@ -38,7 +38,7 @@
         android:textAlignment="center" />
 
     <Button
-        android:text="Check Balance"
+        android:text="View Price (USD)"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/blockInfoButton"
