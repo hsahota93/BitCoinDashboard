@@ -16,7 +16,7 @@ public class NavFragment extends Fragment implements View.OnClickListener {
     Button blockInfo;                       //Declaring a Button
     Button checkBalance;                    //Declaring a Button
     ChartFragment chartFrag;                //Declaring a ChartFragment
-    PriceFragment priceFrag;                //Declaring a PriceFragment
+    BalanceFragment balanceFrag;            //Declaring a PriceFragment
     boolean twoPaneMode;                    //Boolean to check if in landscape mode or not
     FragmentManager fm;                     //Declaring a FragmentManager
 
@@ -61,31 +61,6 @@ public class NavFragment extends Fragment implements View.OnClickListener {
 
                 Toast.makeText(v.getContext(), "View Price", Toast.LENGTH_SHORT).show();
 
-                fm = getFragmentManager();
-                priceFrag = new PriceFragment();
-
-                //Checks orientation of the device, replaces detailsPane if in landscape mode
-                //Replaces navPane if in portrait mode
-                if(twoPaneMode) {
-
-                    fm.beginTransaction()
-                            .replace(R.id.detailsPane, priceFrag)
-                            .addToBackStack("1")
-                            .commit();
-                    fm.executePendingTransactions();
-
-                    priceFrag.getPriceData();           //Updates the TextView with wallet balance
-                } else {
-
-                    fm.beginTransaction()
-                            .replace(R.id.navPane, priceFrag)
-                            .addToBackStack("1")
-                            .commit();
-                    fm.executePendingTransactions();
-
-                    priceFrag.getPriceData();           //Updates the TextView with wallet balance
-                }
-
                 break;
 
             case R.id.priceChartButton:
@@ -120,6 +95,32 @@ public class NavFragment extends Fragment implements View.OnClickListener {
             case R.id.checkBalance:
 
                 Toast.makeText(v.getContext(), "Check Balance", Toast.LENGTH_SHORT).show();
+
+                fm = getFragmentManager();
+                balanceFrag = new BalanceFragment();
+
+                //Checks orientation of the device, replaces detailsPane if in landscape mode
+                //Replaces navPane if in portrait mode
+                if(twoPaneMode) {
+
+                    fm.beginTransaction()
+                            .replace(R.id.detailsPane, balanceFrag)
+                            .addToBackStack("1")
+                            .commit();
+                    fm.executePendingTransactions();
+
+                    balanceFrag.getPriceData();           //Updates the TextView with wallet balance
+                } else {
+
+                    fm.beginTransaction()
+                            .replace(R.id.navPane, balanceFrag)
+                            .addToBackStack("1")
+                            .commit();
+                    fm.executePendingTransactions();
+
+                    balanceFrag.getPriceData();           //Updates the TextView with wallet balance
+                }
+
                 break;
 
             default:

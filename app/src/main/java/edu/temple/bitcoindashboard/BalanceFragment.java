@@ -18,14 +18,14 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.logging.Logger;
 
-public class PriceFragment extends Fragment {
+public class BalanceFragment extends Fragment {
 
     TextView priceText;
     Logger log = Logger.getAnonymousLogger();
 
     /*  http://btc.blockr.io/api/v1/address/info/PUBLIC_KEY_GOES_HERE (For finding current balance)  */
 
-    public PriceFragment() {
+    public BalanceFragment() {
         // Required empty public constructor
     } //End constructor
 
@@ -34,7 +34,7 @@ public class PriceFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_price, container, false);
+        View v = inflater.inflate(R.layout.fragment_balance, container, false);
         priceText = (TextView) v.findViewById(R.id.priceDisplay);
 
         priceText.setText("Loading...");
