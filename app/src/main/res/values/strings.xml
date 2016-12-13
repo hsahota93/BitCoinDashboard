@@ -1,6 +1,35 @@
 <resources>
     <string name="app_name">BitCoin Dashboard</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    //BlockFragment
+    <string name="Loading">Loading...</string>
+    <string name="BlockNumber">Block Number:</string>
+    <string name="Hash">Hash:</string>
+    <string name="Merkleroot">MerkleRoot:</string>
+    <string name="Confirmations">Confirmations:</string>
+    <string name="Size">Size:</string>
+    <string name="Difficulty">Difficulty:</string>
+    <string name="NextBlock">Next Block:</string>
+    <string name="PreviousBlock">Previous Block:</string>
+    <string name="Search">Search</string>
+    <string name="BlockHint">Enter Block Number</string>
+
+    //BalanceFragment
+    <string name="EnterKey">Enter Public Key</string>
+
+    //NavFragment
+    <string name="ViewPrice">View Price (USD)</string>
+    <string name="PriceChart">Price Chart</string>
+    <string name="BlockInfo">Block Info</string>
+    <string name="CheckBalance">Check Balance</string>
+
+    //ViewPriceFragment
+    <string name="CurrentPrice">Current Price of a BitCoin:</string>
+
+    //ChartFragment
+    <string-array name="Time_Interval">
+        <item>1 Day</item>
+        <item>5 Day</item>
+    </string-array>
+
 </resources>

@@ -18,6 +18,7 @@ public class NavFragment extends Fragment implements View.OnClickListener {
     ChartFragment chartFrag;                //Declaring a ChartFragment
     BalanceFragment balanceFrag;            //Declaring a PriceFragment
     ViewPriceFragment priceFrag;            //Declaring a ViewPriceFragment
+    BlockFragment blockFrag;                //Declaring a BlockFragment
     boolean twoPaneMode;                    //Boolean to check if in landscape mode or not
     FragmentManager fm;                     //Declaring a FragmentManager
 
@@ -109,7 +110,25 @@ public class NavFragment extends Fragment implements View.OnClickListener {
 
             case R.id.blockInfoButton:          //If the user clicks the "Block Info" button
 
-                Toast.makeText(v.getContext(), "View Block info", Toast.LENGTH_SHORT).show();
+                blockFrag = new BlockFragment();
+                fm = getFragmentManager();
+
+                if(twoPaneMode) {
+
+                fm.beginTransaction()
+                        .replace(R.id.detailsPane, blockFrag)
+                        .addToBackStack("1")
+                        .commit();
+                fm.executePendingTransactions();
+            } else {
+
+                fm.beginTransaction()
+                        .replace(R.id.navPane, blockFrag)
+                        .addToBackStack("1")
+                        .commit();
+                fm.executePendingTransactions();
+            }
+
                 break;
 
             case R.id.checkBalance:             //If the user clicks the "Check Balance" button
@@ -127,7 +146,6 @@ public class NavFragment extends Fragment implements View.OnClickListener {
                             .commit();
                     fm.executePendingTransactions();
 
-                    balanceFrag.getPriceData();           //Updates the TextView with wallet balance
                 } else {
 
                     fm.beginTransaction()
@@ -135,15 +153,12 @@ public class NavFragment extends Fragment implements View.OnClickListener {
                             .addToBackStack("1")
                             .commit();
                     fm.executePendingTransactions();
-
-                    balanceFrag.getPriceData();           //Updates the TextView with wallet balance
                 }
 
                 break;
 
             default:
 
-                Toast.makeText(v.getContext(), "Default", Toast.LENGTH_SHORT).show();
                 break;
         }
 

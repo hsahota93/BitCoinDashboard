@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="app_name">BitCoin Dashboard</string>
+
+    <string name="Loading">Cargando...</string>
+    <string name="BlockNumber">Número de Bloque:</string>
+    <string name="Hash">Picadillo:</string>
+    <string name="Merkleroot">MerkleRoot:</string>
+    <string name="Confirmations">Confirmaciones:</string>
+    <string name="Size">Tamaño:</string>
+    <string name="Difficulty">Dificultad:</string>
+    <string name="NextBlock">Bloque Siguiente:</string>
+    <string name="PreviousBlock">Bloque Snterior:</string>
+    <string name="Search">Buscar</string>
+    <string name="BlockHint">Introduzca el Número de Bloque</string>
+
+    //BalanceFragment
+    <string name="EnterKey">Introducir Clave Pública</string>
+
+    //NavFragment
+    <string name="ViewPrice">Ver Precio (USD)</string>
+    <string name="PriceChart">Tabla de Precios</string>
+    <string name="BlockInfo">Bloquear Información</string>
+    <string name="CheckBalance">Balance de Comprobación</string>
+
+    //ViewPriceFragment
+    <string name="CurrentPrice">Precio Actual de un BitCoin:</string>
+
+    //ChartFragment
+    <string-array name="Time_Interval">
+        <item>1 Día</item>
+        <item>5 Día</item>
+    </string-array>
+
+</resources>

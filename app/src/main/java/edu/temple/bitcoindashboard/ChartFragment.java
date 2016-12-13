@@ -26,7 +26,6 @@ public class ChartFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -38,7 +37,7 @@ public class ChartFragment extends Fragment {
         dateSpinner = (Spinner) v.findViewById(R.id.dateSelector);
 
         //The options in the spinner
-        String[] timeInterval = {"1 Day", "5 Day"};
+        String[] timeInterval = getResources().getStringArray(R.array.Time_Interval);
 
         //Creating the adapter for the spinner
         ArrayAdapter dateAdapter = new ArrayAdapter(getContext(),
@@ -123,6 +122,14 @@ public class ChartFragment extends Fragment {
                 webView.loadUrl(yahooWebsite + "1d");
                 break;
             case "5 Day":
+
+                webView.loadUrl(yahooWebsite + "5d");
+                break;
+            case "1 Día":
+
+                webView.loadUrl(yahooWebsite + "1d");
+                break;
+            case "5 Día":
 
                 webView.loadUrl(yahooWebsite + "5d");
                 break;

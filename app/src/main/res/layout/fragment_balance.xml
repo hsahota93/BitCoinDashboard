@@ -2,18 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.temple.bitcoindashboard.PriceFragment">
+    tools:context="edu.temple.bitcoindashboard.BalanceFragment">
 
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/priceDisplay"
-        android:textSize="50sp"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:textAlignment="center" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -24,8 +14,34 @@
         android:layout_marginTop="12dp"
         android:id="@+id/enterKey"
         android:layout_alignParentStart="true"
+        android:text="@string/EnterKey"
+        android:textAlignment="center"
+        android:layout_alignEnd="@+id/priceDisplay" />
+
+    <Button
+        android:text="@string/Search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/enterKey"
         android:layout_alignParentEnd="true"
-        android:text="Enter Public Key"
-        android:textAlignment="center" />
+        android:id="@+id/goButton" />
+
+    <TextView
+        android:text="@string/Loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/priceDisplay"
+        android:textSize="50sp"
+        android:layout_below="@+id/enterKey"
+        android:layout_toStartOf="@+id/goButton"
+        android:layout_marginTop="88dp"
+        android:textAlignment="textStart" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/priceDisplay"
+        android:id="@+id/listView" />
 
 </RelativeLayout>
