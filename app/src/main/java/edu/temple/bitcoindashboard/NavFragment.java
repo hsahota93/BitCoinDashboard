@@ -17,6 +17,7 @@ public class NavFragment extends Fragment implements View.OnClickListener {
     Button checkBalance;                    //Declaring a Button
     ChartFragment chartFrag;                //Declaring a ChartFragment
     BalanceFragment balanceFrag;            //Declaring a PriceFragment
+    ViewPriceFragment priceFrag;            //Declaring a ViewPriceFragment
     boolean twoPaneMode;                    //Boolean to check if in landscape mode or not
     FragmentManager fm;                     //Declaring a FragmentManager
 
@@ -59,11 +60,31 @@ public class NavFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.viewPriceButton:          //If user clicks the "View Price" button
 
-                Toast.makeText(v.getContext(), "View Price", Toast.LENGTH_SHORT).show();
+                priceFrag = new ViewPriceFragment();
+                fm = getFragmentManager();
 
+                if(twoPaneMode) {
+
+                    fm.beginTransaction()
+                            .replace(R.id.detailsPane, priceFrag)
+                            .addToBackStack("1")
+                            .commit();
+                    fm.executePendingTransactions();
+
+                    priceFrag.getCurrentValue();
+                } else {
+
+                    fm.beginTransaction()
+                            .replace(R.id.navPane, priceFrag)
+                            .addToBackStack("1")
+                            .commit();
+                    fm.executePendingTransactions();
+
+                    priceFrag.getCurrentValue();
+                }
                 break;
 
-            case R.id.priceChartButton:
+            case R.id.priceChartButton:         //If user clicks the "Price Chart" button
 
                 chartFrag = new ChartFragment();
                 fm = getFragmentManager();
@@ -84,17 +105,14 @@ public class NavFragment extends Fragment implements View.OnClickListener {
                     fm.executePendingTransactions();
                 }
 
-                Toast.makeText(v.getContext(), "View Price Chart", Toast.LENGTH_SHORT).show();
                 break;
 
-            case R.id.blockInfoButton:
+            case R.id.blockInfoButton:          //If the user clicks the "Block Info" button
 
                 Toast.makeText(v.getContext(), "View Block info", Toast.LENGTH_SHORT).show();
                 break;
 
-            case R.id.checkBalance:
-
-                Toast.makeText(v.getContext(), "Check Balance", Toast.LENGTH_SHORT).show();
+            case R.id.checkBalance:             //If the user clicks the "Check Balance" button
 
                 fm = getFragmentManager();
                 balanceFrag = new BalanceFragment();

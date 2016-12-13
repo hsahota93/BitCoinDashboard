@@ -1,18 +1,16 @@
 package edu.temple.bitcoindashboard;
 
 
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
     FragmentManager fm;                     //Declaring the FragmentManager
     NavFragment navFragment;                //Declaring a NavFragment
-    ChartFragment chartFrag;                //Declaring a DetailsFragment
-    boolean twoPaneMode;
+    ViewPriceFragment viewPriceFrag;        //Declaring a ViewPriceFragment
+    boolean twoPaneMode;                    //Used to check if phone is in landscape or not
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,14 +26,16 @@ public class MainActivity extends AppCompatActivity {
         //If you find the detailsPane FrameLayout then replace it with a ChartFragment
         if (twoPaneMode) {
 
-            chartFrag = new ChartFragment();        //Creates a new ChartFragment
+            viewPriceFrag = new ViewPriceFragment();        //Creates a new ChartFragment
 
             //Replaces the detailsPane with a ChartFragment
             fm.beginTransaction()
-                    .replace(R.id.detailsPane, new Fragment())
+                    .replace(R.id.detailsPane, viewPriceFrag)
                     .addToBackStack("1")
                     .commit();
             fm.executePendingTransactions();
+
+            viewPriceFrag.getCurrentValue();
         }
 
         //Creates a new NavFragment then tells the NavFragment if

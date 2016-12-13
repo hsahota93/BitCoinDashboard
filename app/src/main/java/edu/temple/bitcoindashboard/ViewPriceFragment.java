@@ -1,5 +1,6 @@
 package edu.temple.bitcoindashboard;
 
+
 import android.os.Bundle;
 import android.app.Fragment;
 import android.os.Handler;
@@ -8,47 +9,44 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 
-public class BalanceFragment extends Fragment {
+public class ViewPriceFragment extends Fragment {
 
     TextView priceText;
-    /*  http://btc.blockr.io/api/v1/address/info/PUBLIC_KEY_GOES_HERE (For finding current balance)  */
+    //http://btc.blockr.io/api/v1/coin/info
 
-    public BalanceFragment() {
+    public ViewPriceFragment() {
         // Required empty public constructor
-    } //End constructor
+    }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_balance, container, false);
-        priceText = (TextView) v.findViewById(R.id.priceDisplay);
+        View v = inflater.inflate(R.layout.fragment_view_price, container, false);
+        priceText = (TextView) v.findViewById(R.id.priceView);
 
         priceText.setText("Loading...");
 
         return v;
-    } //End onCreateView
+    }
 
-    public void getPriceData() {
+    public void getCurrentValue() {
 
-        Thread priceThread = new Thread() {
+        Thread getValue = new Thread() {
 
             @Override
             public void run() {
 
                 try {
 
-                    URL url = new URL("http://btc.blockr.io/api/v1/address/balance/1FfmbHfnpaZjKFvyi1okTjJJusN455paPH");
+                    URL url = new URL("http://btc.blockr.io/api/v1/coin/info");
                     BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
 
                     String tmpString;
@@ -66,10 +64,11 @@ public class BalanceFragment extends Fragment {
                     msg.obj = response;
                     responseHandler.sendMessage(msg);
                 } catch (Exception e) {}
+
             }
         };
 
-        priceThread.start();
+        getValue.start();
     }
 
     Handler responseHandler = new Handler(new Handler.Callback() {
@@ -80,16 +79,16 @@ public class BalanceFragment extends Fragment {
 
                 JSONObject blockObject = new JSONObject((String) msg.obj);
                 JSONObject data = blockObject.getJSONObject("data");
+                JSONObject markets = data.getJSONObject("markets");
+                JSONObject coinbase = markets.getJSONObject("coinbase");
 
-                String balance = data.get("balance").toString();
+                String balance = coinbase.get("value").toString();
 
-                priceText.setText(balance);
-
-                Toast.makeText(getContext(), balance, Toast.LENGTH_SHORT).show();
-            } catch (JSONException e) {}
+                priceText.setText("$" + balance);
+             } catch (JSONException e) {}
 
             return true;
         }
     });
 
-} //End PriceFragment
+}

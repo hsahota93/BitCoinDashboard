@@ -3,6 +3,8 @@ package edu.temple.bitcoindashboard;
 
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +15,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-
 public class ChartFragment extends Fragment {
 
     WebView webView;
     Spinner dateSpinner;
     String yahooWebsite = "http://chart.yahoo.com/z?s=BTCUSD=X&t=";
+    boolean loop = true;
 
     public ChartFragment() {
         // Required empty public constructor
@@ -70,8 +72,45 @@ public class ChartFragment extends Fragment {
         //To make viewing the chart easier
         webView.setInitialScale(200);
 
+        refresh();
+
         return v;
     }
+
+    private void refresh() {
+
+        Thread refreshPage = new Thread() {
+
+            @Override
+            public void run() {
+
+                Message message = Message.obtain();
+                message.obj = "Start";
+                reloadHandler.sendMessage(message);
+
+                while(loop) {
+
+                    try {
+
+                        Thread.sleep(15000);
+                        Message secondMessage = Message.obtain();
+                        reloadHandler.sendMessage(secondMessage);
+                    } catch (Exception e) {}
+                }
+            }
+        };
+
+        refreshPage.start();
+    }
+
+    Handler reloadHandler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+
+            webView.reload();
+            return false;
+        }
+    });
 
     private void getTimeInterval(String string) {
 
@@ -80,9 +119,11 @@ public class ChartFragment extends Fragment {
         switch (string) {
 
             case "1 Day":
+
                 webView.loadUrl(yahooWebsite + "1d");
                 break;
             case "5 Day":
+
                 webView.loadUrl(yahooWebsite + "5d");
                 break;
 
